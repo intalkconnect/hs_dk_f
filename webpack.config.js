@@ -13,7 +13,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
+          loader: "babel-loader",
+          options: {
+            // AQUI é o pulo do gato: forçar o preset React
+            presets: ["@babel/preset-env", "@babel/preset-react"]
+          }
         }
       },
       {
