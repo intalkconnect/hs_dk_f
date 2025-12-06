@@ -5,6 +5,8 @@ import RegisterCompanyPage from "./pages/RegisterCompanyPage";
 import DashboardClient from "./pages/DashboardClient";
 import DashboardAgent from "./pages/DashboardAgent";
 import TicketDetailPage from "./pages/TicketDetailPage";
+import AdminUsersPage from "./pages/AdminUsersPage";
+import AdminSettingsPage from "./pages/AdminSettingsPage";
 import { useAuth } from "./context/AuthContext";
 import Layout from "./components/Layout";
 
@@ -52,6 +54,30 @@ export default function App() {
           <PrivateRoute roles={["client", "agent", "admin"]}>
             <Layout>
               <TicketDetailPage />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/admin/users"
+        element{
+          /* somente admin */
+          =
+          {
+            <PrivateRoute roles={["admin"]}>
+              <Layout>
+                <AdminUsersPage />
+              </Layout>
+            </PrivateRoute>
+          }
+        }
+      />
+      <Route
+        path="/admin/settings"
+        element={
+          <PrivateRoute roles={["admin"]}>
+            <Layout>
+              <AdminSettingsPage />
             </Layout>
           </PrivateRoute>
         }
