@@ -6,36 +6,39 @@ export default function Layout({ children }) {
   const { user, logout } = useAuth();
 
   return (
-    <div>
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          padding: "10px 20px",
-          background: "#222",
-          color: "#fff"
-        }}
-      >
-        <div>
-          <strong>Helpdesk</strong>{" "}
-          {user && <span style={{ marginLeft: 10 }}>({user.role})</span>}
-        </div>
-        <nav>
-          {user?.role === "client" && <Link to="/client">Meus tickets</Link>}
-          {(user?.role === "agent" || user?.role === "admin") && (
-            <Link to="/agent" style={{ marginRight: 10 }}>
-              Painel
-            </Link>
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="app-header-title">
+          Helpdesk
+          {user && (
+            <span style={{ marginLeft: 8, fontSize: 12, opacity: 0.8 }}>
+              ({user.role})
+            </span>
           )}
-          <button
-            onClick={logout}
-            style={{ marginLeft: 10 }}
-          >
-            Sair
-          </button>
+        </div>
+        <nav className="app-nav">
+          {user?.role === "client" && <Link to="/client">Meus tickets</Link>}
+
+          {(user?.role === "agent" || user?.role === "admin") && (
+            <>
+              <Link to="/agent">Painel</Link>
+              {user?.role === "admin" && (
+                <>
+                  {" | "}
+                  <Link to="/admin/users">Usuários</Link>{" | "}
+                  <Link to="/admin/settings">Configurações</Link>
+                </>
+              )}
+            </>
+          )}
+          {user && (
+            <button className="btn btn-ghost" onClick={logout}>
+              Sair
+            </button>
+          )}
         </nav>
       </header>
-      <main style={{ padding: 20 }}>{children}</main>
+      <main className="app-main">{children}</main>
     </div>
   );
 }
