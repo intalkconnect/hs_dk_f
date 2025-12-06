@@ -13,7 +13,9 @@ import Layout from "./components/Layout";
 function PrivateRoute({ children, roles }) {
   const { user } = useAuth();
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
 
   if (roles && !roles.includes(user.role)) {
     return <Navigate to="/" />;
@@ -38,16 +40,18 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
       <Route
         path="/agent"
         element={
-          <PrivateRoute roles={["agent", "admin"]}>
+          <PrivateRoute roles={["agent", 'admin']}>
             <Layout>
               <DashboardAgent />
             </Layout>
           </PrivateRoute>
         }
       />
+
       <Route
         path="/tickets/:id"
         element={
@@ -58,20 +62,19 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
+      {/* somente admin */}
       <Route
         path="/admin/users"
-        element{
-          /* somente admin */
-          =
-          {
-            <PrivateRoute roles={["admin"]}>
-              <Layout>
-                <AdminUsersPage />
-              </Layout>
-            </PrivateRoute>
-          }
+        element={
+          <PrivateRoute roles={["admin"]}>
+            <Layout>
+              <AdminUsersPage />
+            </Layout>
+          </PrivateRoute>
         }
       />
+
       <Route
         path="/admin/settings"
         element={
@@ -82,6 +85,7 @@ export default function App() {
           </PrivateRoute>
         }
       />
+
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );
