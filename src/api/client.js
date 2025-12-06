@@ -1,4 +1,4 @@
-const API_URL = "/api";
+const API_URL = "https://sparkling-rugelach-455f78.netlify.app/api";
 
 export async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("token");
