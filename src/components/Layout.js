@@ -9,10 +9,18 @@ export default function Layout({ children }) {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-header-title">
-          Helpdesk
+          helpdesk
           {user && (
-            <span style={{ marginLeft: 8, fontSize: 12, opacity: 0.8 }}>
-              ({user.role})
+            <span
+              style={{
+                fontSize: 11,
+                opacity: 0.75,
+                textTransform: "none",
+                letterSpacing: 0,
+                marginLeft: 4
+              }}
+            >
+              · {user.role}
             </span>
           )}
         </div>
@@ -24,15 +32,19 @@ export default function Layout({ children }) {
               <Link to="/agent">Painel</Link>
               {user?.role === "admin" && (
                 <>
-                  {" | "}
-                  <Link to="/admin/users">Usuários</Link>{" | "}
+                  <Link to="/admin/users">Usuários</Link>
                   <Link to="/admin/settings">Configurações</Link>
                 </>
               )}
             </>
           )}
+
           {user && (
-            <button className="btn btn-ghost" onClick={logout}>
+            <button
+              className="btn btn-ghost"
+              style={{ fontSize: 12, paddingInline: 12 }}
+              onClick={logout}
+            >
               Sair
             </button>
           )}
